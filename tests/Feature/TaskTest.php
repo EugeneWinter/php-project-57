@@ -23,7 +23,7 @@ class TaskTest extends TestCase
         Task::factory()->count(5)->create();
 
         $response = $this->get(route('tasks.index'));
-        
+
         $response->assertOk()
             ->assertViewHas('tasks')
             ->assertSeeInOrder(Task::pluck('name')->all());
