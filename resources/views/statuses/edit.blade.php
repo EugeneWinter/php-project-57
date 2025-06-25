@@ -1,28 +1,78 @@
 <x-app-layout>
-    <section class="bg-white dark:bg-gray-900">
-        <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-            <div class="grid col-span-full">
-                <h1 class="mb-5">@lang('app.pages.updateStatus')</h1>
+    <x-slot name="header">
+        {{ __('Редактирование задачи') }}
+    </x-slot>
 
-                {{ html()->modelForm($taskStatus, 'PATCH', route('task_statuses.update', $taskStatus))->class('w-50')->open() }}
-
-                {{ html()->div()->class('flex flex-col')->open() }}
-                <div>
-                    {{ html()->label(__('app.pages.name'), 'name') }}
-                </div>
-                <div class="mt-2">
-                    {{ html()->text('name')->class('form-field')->classIf($errors->has('name'), 'border-rose-600') }}
-                    @if ($errors->has('name'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
-                <div class="mt-2">
-                    {{ html()->submit(__('app.pages.update'))->class('blue-button') }}
-                </div>
-                {{ html()->div()->close() }}
-
-                {{ html()->closeModelForm() }}
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Редактирование задачи</h2>
+            <a href="{{ route('tasks.index') }}" class="btn btn-outline">
+                Назад к списку
+            </a>
         </div>
-    </section>
+
+        <div class="card-body">
+            <form action="{{ route('tasks.update', $task) }}" method="POST">
+                @csrf
+                @method('PUT')
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Название задачи *</label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ old('name', $task->name) }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="status_id">Статус *</label>
+                        <select class="form-control" id="status_id" name="status_id" required>
+                            <option value="">Выберите статус</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}" 
+                                    {{ $status->id == $task->status_id ? 'selected' : '' }}>
+                                    {{ $status->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="created_by_id">Автор *</label>
+                        <select class="form-control" id="created_by_id" name="created_by_id" required>
+                            <option value="">Выберите автора</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}"
+                                    {{ $user->id == $task->created_by_id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="assigned_to_id">Исполнитель</label>
+                        <select class="form-control" id="assigned_to_id" name="assigned_to_id">
+                            <option value="">Не назначено</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}"
+                                    {{ $user->id == optional($task->assignedTo)->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group md:col-span-2">
+                        <label class="form-label" for="description">Описание</label>
+                        <textarea class="form-control" id="description" name="description" rows="4">{{ old('description', $task->description) }}</textarea>
+                    </div>
+                </div>
+                
+                <div class="flex-between mt-6">
+                    <button type="reset" class="btn btn-outline">Сбросить</button>
+                    <button type="submit" class="btn btn-blue">Обновить задачу</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </x-app-layout>

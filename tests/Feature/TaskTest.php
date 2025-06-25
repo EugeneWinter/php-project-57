@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Task;
+use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -10,6 +11,8 @@ use Tests\TestCase;
 class TaskTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected User $user;
 
     protected function setUp(): void
     {
@@ -31,9 +34,10 @@ class TaskTest extends TestCase
 
     public function test_user_can_create_task(): void
     {
+        $status = TaskStatus::factory()->create();
         $data = [
             'name' => 'Test Task',
-            'status_id' => TaskStatus::factory()->create()->id,
+            'status_id' => $status->id,
         ];
 
         $this->post(route('tasks.store'), $data)
@@ -56,7 +60,8 @@ class TaskTest extends TestCase
 
     public function test_non_creator_cannot_delete_task(): void
     {
-        $task = Task::factory()->create();
+        $otherUser = User::factory()->create();
+        $task = Task::factory()->create(['created_by_id' => $otherUser->id]);
 
         $this->delete(route('tasks.destroy', $task))
             ->assertForbidden();

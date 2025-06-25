@@ -1,56 +1,52 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <h2 class="text-center">
-        <a href="{{ route('/') }}">
-            @lang('app.name')
-        </a>
-    </h2>
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('auth.email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">Добро пожаловать</h1>
+            <p class="text-gray-600">Войдите в свой аккаунт</p>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('auth.password')" />
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="form-group mb-6">
+                <label class="form-label" for="email">Email *</label>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">
-                    @lang('auth.remember')
-                </span>
-            </label>
-        </div>
+            <div class="form-group mb-6">
+                <label class="form-label" for="password">Пароль *</label>
+                <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password">
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    href="{{ route('password.request') }}">
-                    @lang('auth.forgot')
+            <div class="flex items-center justify-between mb-6">
+                <label for="remember_me" class="inline-flex items-center">
+                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500" name="remember">
+                    <span class="ms-2 text-sm text-gray-600">Запомнить меня</span>
+                </label>
+                
+                @if (Route::has('password.request'))
+                    <a class="text-sm text-blue-600 hover:text-blue-800" href="{{ route('password.request') }}">
+                        Забыли пароль?
+                    </a>
+                @endif
+            </div>
+
+            <button type="submit" class="btn btn-blue w-full py-3 text-lg">
+                Войти
+            </button>
+        </form>
+        
+        <div class="mt-8 text-center">
+            <p class="text-gray-600">
+                Ещё нет аккаунта?
+                <a href="{{ route('register') }}" class="text-blue-600 font-medium hover:text-blue-800">
+                    Зарегистрируйтесь
                 </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                @lang('auth.logIn')
-            </x-primary-button>
+            </p>
         </div>
-    </form>
+    </div>
 </x-guest-layout>

@@ -9,7 +9,14 @@ class TaskStatusSeeder extends Seeder
 {
     public function run(): void
     {
-        foreach (TaskStatus::STATUSES as $status) {
+        $statuses = [
+            'новый',
+            'в работе',
+            'на тестировании',
+            'завершен'
+        ];
+
+        foreach ($statuses as $status) {
             TaskStatus::firstOrCreate(['name' => $status]);
         }
     }

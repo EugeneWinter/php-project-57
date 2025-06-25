@@ -1,21 +1,26 @@
 <x-app-layout>
-    <section class="bg-white dark:bg-gray-900">
-        <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-            <div class="mr-auto place-self-center lg:col-span-7">
-                <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
-                    @lang('app.intro')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-blue-800 leading-tight">
+            {{ __('Добро пожаловать в менеджер задач') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-glass overflow-hidden shadow-xl rounded-lg p-8 text-center">
+                <h1 class="text-4xl font-bold text-blue-800 mb-6">
+                    {{ __('Система управления задачами') }}
                 </h1>
-                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl">
-                    @lang('app.description')
+                <p class="text-xl text-blue-700 mb-8 max-w-2xl mx-auto">
+                    {{ __('Эффективно управляйте задачами с помощью этой мега ультра хайповой платформы') }}
                 </p>
-                <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <a href="https://hexlet.io"
-                        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                        target="_blank">
-                        @lang('app.mainButton')
+                <div class="flex justify-center">
+                    <a href="{{ route('login') }}" 
+                       class="btn-blue px-6 py-3 text-lg">
+                        {{ __('Начать работу') }}
                     </a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </x-app-layout>

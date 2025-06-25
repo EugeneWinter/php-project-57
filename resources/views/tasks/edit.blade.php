@@ -4,65 +4,90 @@
             <div class="grid col-span-full">
                 <h1 class="mb-5">@lang('app.pages.updateTask')</h1>
 
-                {{ html()->modelForm($task, 'PATCH', route('tasks.update', $task))->class('w-50')->open() }}
+                <form method="POST" action="{{ route('tasks.update', $task) }}" class="w-50">
+                    @csrf
+                    @method('PATCH')
+                    <div class="flex flex-col">
+                        <div>
+                            <label for="name">@lang('app.pages.name')</label>
+                        </div>
+                        <div>
+                            <input type="text" name="name" id="name" 
+                                   value="{{ old('name', $task->name) }}"
+                                   class="form-field @error('name') border-rose-600 @enderror">
+                            @error('name')
+                                <p class="text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                {{ html()->div()->class('flex flex-col')->open() }}
-                <div>
-                    {{ html()->label(__('app.pages.name'), 'name') }}
-                </div>
-                <div>
-                    {{ html()->text('name')->class('form-field')->classIf($errors->has('name'), 'border-rose-600') }}
-                    @if ($errors->has('name'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
+                        <div class="mt-2">
+                            <label for="description">@lang('app.pages.description')</label>
+                        </div>
+                        <div>
+                            <textarea name="description" id="description" 
+                                      class="form-field h-32 @error('description') border-rose-600 @enderror">{{ old('description', $task->description) }}</textarea>
+                            @error('description')
+                                <p class="text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.description'), 'description') }}
-                </div>
-                <div>
-                    {{ html()->textarea('description')->class('form-field h-32')->classIf($errors->has('description'), 'border-rose-600') }}
-                    @if ($errors->has('description'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
+                        <div class="mt-2">
+                            <label for="status_id">@lang('app.pages.status')</label>
+                        </div>
+                        <div>
+                            <select name="status_id" id="status_id" 
+                                    class="form-field @error('status_id') border-rose-600 @enderror">
+                                <option value=""></option>
+                                @foreach($statuses as $id => $name)
+                                    <option value="{{ $id }}" 
+                                        {{ old('status_id', $task->status_id) == $id ? 'selected' : '' }}>
+                                        {{ $name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('status_id')
+                                <p class="text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.status'), 'status_id') }}
-                </div>
-                <div>
-                    {{ html()->select('status_id')->options(['' => ''] + $statuses)->value(old('status_id', $task->status_id))->class('form-field')->classIf($errors->has('status_id'), 'border-rose-600') }}
-                    @if ($errors->has('status_id'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
+                        <div class="mt-2">
+                            <label for="assigned_to_id">@lang('app.pages.executor')</label>
+                        </div>
+                        <div>
+                            <select name="assigned_to_id" id="assigned_to_id" 
+                                    class="form-field @error('assigned_to_id') border-rose-600 @enderror">
+                                <option value=""></option>
+                                @foreach($users as $id => $name)
+                                    <option value="{{ $id }}" 
+                                        {{ old('assigned_to_id', $task->assigned_to_id) == $id ? 'selected' : '' }}>
+                                        {{ $name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('assigned_to_id')
+                                <p class="text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.executor'), 'assigned_to_id') }}
-                </div>
-                <div>
-                    {{ html()->select('assigned_to_id')->options(['' => ''] + $users)->value(old('assigned_to_id', $task->assigned_to_id))->class('form-field')->classIf($errors->has('assigned_to_id'), 'border-rose-600') }}
-                    @if ($errors->has('assigned_to_id'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
+                        <div class="mt-2">
+                            <label for="labels">@lang('app.pages.labels')</label>
+                        </div>
+                        <div>
+                            <select name="labels[]" id="labels" multiple 
+                                    class="form-field h-32 @error('labels') border-rose-600 @enderror">
+                            </select>
+                            @error('labels')
+                                <p class="text-rose-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.labels'), 'labels[]') }}
-                </div>
-                <div>
-                    {{ html()->multiselect('labels[]')->options(['' => ''])->class('form-field h-32')->classIf($errors->has('labels[]'), 'border-rose-600') }}
-                    @if ($errors->has('labels[]'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
-
-                <div class="mt-2">
-                    {{ html()->submit(__('app.pages.update'))->class('blue-button') }}
-                </div>
-                {{ html()->div()->close() }}
-
-                {{ html()->closeModelForm() }}
+                        <div class="mt-2">
+                            <button type="submit" class="blue-button">
+                                @lang('app.pages.update')
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

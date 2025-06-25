@@ -2,18 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TaskStatus extends Model
 {
-    use HasFactory;
+    public const STATUSES = [
+        'новый',
+        'в работе',
+        'на тестировании',
+        'завершен'
+    ];
 
     protected $fillable = ['name'];
 
     public function tasks(): HasMany
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'status_id');
     }
 }

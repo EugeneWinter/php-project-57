@@ -1,63 +1,67 @@
 <x-app-layout>
-    <section class="bg-white dark:bg-gray-900">
-        <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-            <div class="grid col-span-full">
-                <h1 class="mb-5">@lang('app.pages.createTask')</h1>
+    <x-slot name="header">
+        {{ __('Создание новой задачи') }}
+    </x-slot>
 
-                {{ html()->modelForm($task, 'POST', route('tasks.store'))->class('w-50')->open() }}
-
-                {{ html()->div()->class('flex flex-col')->open() }}
-                <div>
-                    {{ html()->label(__('app.pages.name'), 'name') }}
-                </div>
-                <div>
-                    {{ html()->text('name')->class('form-field')->classIf($errors->has('name'), 'border-rose-600') }}
-                    @if ($errors->has('name'))
-                        <p class="text-rose-600">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
-
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.description'), 'description') }}
-                </div>
-                <div>
-                    {{ html()->textarea('description')->class('form-field h-32') }}
-                </div>
-
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.status'), 'status_id') }}
-                </div>
-                <div>
-                    {{ html()->select('status_id')->options(['' => ''] + $statuses)->value(old('status_id', ''))->class('form-field')->classIf($errors->has('status_id'), 'border-rose-600') }}
-                    @if ($errors->has('status_id'))
-                        <p class="text-rose-600">{{ $errors->first('status_id') }}</p>
-                    @endif
-                </div>
-
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.executor'), 'assigned_to_id') }}
-                </div>
-                <div>
-                    {{ html()->select('assigned_to_id')->options(['' => ''] + $users)->value(old('assigned_to_id', ''))->class('form-field') }}
-                </div>
-
-                <div class="mt-2">
-                    {{ html()->label(__('app.pages.labels'), 'labels[]') }}
-                </div>
-                <div>
-                    {{ html()->multiselect('labels[]')->options(['' => ''])->class('form-field h-32')->classIf($errors->has('labels[]'), 'border-rose-600') }}
-                    @if ($errors->has('labels[]'))
-                        <p class="text-rose-600">{{ $errors->first('labels[]') }}</p>
-                    @endif
-                </div>
-
-                <div class="mt-2">
-                    {{ html()->submit(__('app.pages.create'))->class('blue-button') }}
-                </div>
-                {{ html()->div()->close() }}
-
-                {{ html()->closeModelForm() }}
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Новая задача</h2>
+            <a href="{{ route('tasks.index') }}" class="btn btn-outline">
+                Назад к списку
+            </a>
         </div>
-    </section>
+
+        <div class="card-body">
+            <form action="{{ route('tasks.store') }}" method="POST">
+                @csrf
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Название задачи *</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="status_id">Статус *</label>
+                        <select class="form-control" id="status_id" name="status_id" required>
+                            <option value="">Выберите статус</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="created_by_id">Автор *</label>
+                        <select class="form-control" id="created_by_id" name="created_by_id" required>
+                            <option value="">Выберите автора</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="assigned_to_id">Исполнитель</label>
+                        <select class="form-control" id="assigned_to_id" name="assigned_to_id">
+                            <option value="">Не назначено</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group md:col-span-2">
+                        <label class="form-label" for="description">Описание</label>
+                        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                    </div>
+                </div>
+                
+                <div class="flex-between mt-6">
+                    <button type="reset" class="btn btn-outline">Очистить</button>
+                    <button type="submit" class="btn btn-blue">Создать задачу</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </x-app-layout>

@@ -28,14 +28,17 @@ class TaskController extends Controller
     {
         return view('tasks.create', [
             'task' => new Task(),
-            'users' => User::pluck('name', 'id'),
-            'statuses' => TaskStatus::pluck('name', 'id')
+            'users' => User::get(),
+            'statuses' => TaskStatus::get()
         ]);
     }
 
     public function store(TaskRequest $request): RedirectResponse
     {
-        Task::create($request->validated() + [
+        $data = $request->validated();
+        $data['description'] = $data['description'] ?? '';
+
+        Task::create($data + [
             'created_by_id' => auth()->id()
         ]);
 
@@ -52,14 +55,17 @@ class TaskController extends Controller
     {
         return view('tasks.edit', [
             'task' => $task,
-            'users' => User::pluck('name', 'id'),
-            'statuses' => TaskStatus::pluck('name', 'id')
+            'users' => User::get(),
+            'statuses' => TaskStatus::get()
         ]);
     }
 
     public function update(TaskRequest $request, Task $task): RedirectResponse
     {
-        $task->update($request->validated());
+        $data = $request->validated();
+        $data['description'] = $data['description'] ?? ''; // Добавьте эту строку
+        
+        $task->update($data);
 
         return redirect()->route('tasks.index')
             ->with('success', __('app.flash.task.updated'));
