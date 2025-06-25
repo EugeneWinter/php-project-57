@@ -35,7 +35,7 @@
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-blue w-full py-3 text-lg">
+            <button type="submit" class="blue-button w-full py-3 text-lg">
                 Войти
             </button>
         </form>
