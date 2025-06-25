@@ -64,7 +64,7 @@ class TaskController extends Controller
     {
         $data = $request->validated();
         $data['description'] = $data['description'] ?? ''; // Добавьте эту строку
-        
+
         $task->update($data);
 
         return redirect()->route('tasks.index')
