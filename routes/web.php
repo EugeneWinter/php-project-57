@@ -10,6 +10,15 @@ Route::get('/', function () {
     return view('index');
 })->name('/');
 
+// Health check endpoint for deployment services
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok', 'timestamp' => now()], 200);
+})->name('health');
+
+Route::get('/ping', function () {
+    return response('pong', 200);
+})->name('ping');
+
 Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::resource('task_statuses', TaskStatusController::class);
