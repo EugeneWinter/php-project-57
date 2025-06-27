@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Minimal package.json for npm ci compatibility",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "echo 'No build step required'"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {}
