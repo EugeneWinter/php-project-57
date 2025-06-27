@@ -7,7 +7,7 @@ use App\Http\Controllers\LabelController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 })->name('/');
 
 // Health check endpoint for deployment services
