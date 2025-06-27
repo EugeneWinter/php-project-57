@@ -1,4 +1,5 @@
 <x-guest-layout>
+<name></name>
     
 <h1>Привет от Хекслета!</h1>
 <div class="min-h-screen flex items-center justify-center py-12 px-4">

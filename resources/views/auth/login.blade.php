@@ -1,4 +1,5 @@
 <x-guest-layout>
+<name></name>
     <div class="auth-card">
         <h2 class="auth-title">{{ __('Вход в систему') }}</h2>
         <p class="auth-description">
