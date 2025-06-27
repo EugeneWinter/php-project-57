@@ -1,10 +1,10 @@
 FROM php:8.2-apache
 
 # Установка зависимостей системы
-RUN apt-get update \&&\ apt-get install -y \\
-    libpq-dev \\
-    libzip-dev \\
-    unzip \\
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libzip-dev \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Установка PHP расширений
