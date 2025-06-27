@@ -12,7 +12,7 @@ class TaskPolicy
         return true;
     }
 
-    public function delete(User $user, Task $task): bool
+    public function delete(User $user, Task $task)
     {
         return $user->id === $task->created_by_id;
     }

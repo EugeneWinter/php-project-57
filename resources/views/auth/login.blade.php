@@ -33,7 +33,7 @@
         </form>
         <div class="auth-links">
             <span>Нет аккаунта?</span>
-            <a href="{{ route('register') }}">Зарегистрироваться</a>
+            <a href="{{ route('register') }}">Зарегистрировать</a>
         </div>
     </div>
 </x-guest-layout>

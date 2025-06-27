@@ -2,57 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskStatusRequest;
 use App\Models\TaskStatus;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use App\Http\Requests\TaskStatusRequest;
 
 class TaskStatusController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        $taskStatuses = TaskStatus::withCount('tasks')->latest()->paginate(10);
-        return view('statuses.index', compact('taskStatuses'));
+        $statuses = TaskStatus::paginate(10);
+        return view('task_statuses.index', compact('statuses'));
     }
 
-    public function create(): View
+    public function create()
     {
-        return view('statuses.create', [
-            'taskStatus' => new TaskStatus()
-        ]);
+        return view('task_statuses.create');
     }
 
-    public function store(TaskStatusRequest $request): RedirectResponse
+    public function store(TaskStatusRequest $request)
     {
         TaskStatus::create($request->validated());
-
-        return redirect()->route('task_statuses.index')
-            ->with('success', __('app.flash.status.created'));
+        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
 
-    public function edit(TaskStatus $taskStatus): View
+    public function edit(TaskStatus $taskStatus)
     {
-        return view('statuses.edit', compact('taskStatus'));
+        return view('task_statuses.edit', compact('taskStatus'));
     }
 
-    public function update(TaskStatusRequest $request, TaskStatus $taskStatus): RedirectResponse
+    public function update(TaskStatusRequest $request, TaskStatus $taskStatus)
     {
         $taskStatus->update($request->validated());
-
-        return redirect()->route('task_statuses.index')
-            ->with('success', __('app.flash.status.updated'));
+        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно изменён');
     }
 
-    public function destroy(TaskStatus $taskStatus): RedirectResponse
+    public function destroy(TaskStatus $taskStatus)
     {
-        if ($taskStatus->tasks()->exists()) {
-            return back()
-                ->with('error', __('app.flash.status.deleteFailed'));
-        }
-
         $taskStatus->delete();
-
-        return redirect()->route('task_statuses.index')
-            ->with('success', __('app.flash.status.deleted'));
+        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно удалён');
     }
 }

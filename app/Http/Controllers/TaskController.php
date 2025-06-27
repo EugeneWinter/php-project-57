@@ -2,82 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use App\Models\TaskStatus;
-use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use App\Http\Requests\TaskRequest;
 
 class TaskController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        $tasks = Task::with('status', 'createdBy', 'assignedTo')
-            ->latest()
-            ->paginate(15);
-
-        return view('tasks.index', [
-            'tasks' => $tasks,
-            'users' => User::pluck('name', 'id'),
-            'statuses' => TaskStatus::pluck('name', 'id')
-        ]);
+        $tasks = Task::with(['status', 'createdBy', 'assignedTo'])->paginate(10);
+        return view('tasks.index', compact('tasks'));
     }
 
-    public function create(): View
+    public function create()
     {
-        return view('tasks.create', [
-            'task' => new Task(),
-            'users' => User::get(),
-            'statuses' => TaskStatus::get()
-        ]);
+        return view('tasks.create');
     }
 
-    public function store(TaskRequest $request): RedirectResponse
+    public function store(TaskRequest $request)
     {
-        $data = $request->validated();
-        $data['description'] = $data['description'] ?? '';
-
-        Task::create($data + [
-            'created_by_id' => auth()->id()
+        $task = Task::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'status_id' => $request->status_id,
+            'created_by_id' => auth()->id(),
+            'assigned_to_id' => $request->assigned_to_id
         ]);
 
-        return redirect()->route('tasks.index')
-            ->with('success', __('app.flash.task.created'));
+        return redirect()->route('tasks.index')->with('success', 'Задача успешно создана');
     }
 
-    public function show(Task $task): View
+    public function show(Task $task)
     {
         return view('tasks.show', compact('task'));
     }
 
-    public function edit(Task $task): View
+    public function edit(Task $task)
     {
-        return view('tasks.edit', [
-            'task' => $task,
-            'users' => User::get(),
-            'statuses' => TaskStatus::get()
+        return view('tasks.edit', compact('task'));
+    }
+
+    public function update(TaskRequest $request, Task $task)
+    {
+        $task->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'status_id' => $request->status_id,
+            'assigned_to_id' => $request->assigned_to_id
         ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Задача успешно изменена');
     }
 
-    public function update(TaskRequest $request, Task $task): RedirectResponse
+    public function destroy(Task $task)
     {
-        $data = $request->validated();
-        $data['description'] = $data['description'] ?? ''; // Добавьте эту строку
-
-        $task->update($data);
-
-        return redirect()->route('tasks.index')
-            ->with('success', __('app.flash.task.updated'));
-    }
-
-    public function destroy(Task $task): RedirectResponse
-    {
-        $this->authorize('delete', $task);
-
         $task->delete();
-
-        return redirect()->route('tasks.index')
-            ->with('success', __('app.flash.task.deleted'));
+        return redirect()->route('tasks.index')->with('success', 'Задача успешно удалена');
     }
 }
