@@ -10,7 +10,7 @@
 
             <div class="form-group">
     <label for="name">Имя</label>
-    <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus />
+    <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus>
     @error('name')
         <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
     @enderror
