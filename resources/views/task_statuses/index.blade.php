@@ -13,7 +13,7 @@
     <div class="card">
         @if($statuses->count() > 0)
             <div class="overflow-x-auto">
-                <table class="table">
+                <table>
                     <thead>
                         <tr>
                             <th>{{ __('ID') }}</th>

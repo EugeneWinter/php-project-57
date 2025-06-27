@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <x-input-label for="email" :value="__('Email')" />
-                <input type="email" name="email" id="email" type="email" name="email" :value="old('email')" required />
+                <input type="email" name="email" id="email" value="{{ old('email') }}" required>
                 <x-input-error :messages="$errors->get('email')" />
             </div>
 

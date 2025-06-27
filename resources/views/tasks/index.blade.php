@@ -31,7 +31,7 @@
             </div>
             
             <div class="overflow-x-auto">
-                <table class="table table-hover">
+                <table>
                     <thead class="table-header">
                         <tr>
                             <th class="text-center">
