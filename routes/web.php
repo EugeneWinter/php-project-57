@@ -4,13 +4,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\LabelController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
-// Health check endpoint for deployment services
 Route::get('/health', function () {
     return response()->json(['status' => 'ok', 'timestamp' => now()], 200);
 })->name('health');
@@ -18,6 +19,13 @@ Route::get('/health', function () {
 Route::get('/ping', function () {
     return response('pong', 200);
 })->name('ping');
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class);

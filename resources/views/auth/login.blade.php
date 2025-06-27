@@ -28,7 +28,7 @@
                 @endif
             </div>
             <div class="form-footer">
-                <button type="submit" class="btn btn-primary">Войти</button>
+                <button type="submit" name="login-button" class="btn btn-primary">Войти</button>
             </div>
         </form>
         <div class="auth-links">

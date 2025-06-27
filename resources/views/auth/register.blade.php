@@ -33,7 +33,7 @@
                 @enderror
             </div>
             <div class="form-footer">
-                <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+                <button type="submit" name="register-button" class="btn btn-primary">Зарегистрировать</button>
             </div>
         </form>
         <div class="auth-links">
