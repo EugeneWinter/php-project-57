@@ -3,7 +3,7 @@
 <button 
     {{ $attributes->merge([
         'type' => $type,
-        'class' => 'blue-button'
+        'class' => 'btn btn-primary'
     ]) }}>
     {{ $slot }}
 </button>

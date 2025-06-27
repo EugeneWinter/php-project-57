@@ -11,8 +11,8 @@ class TaskStatusController extends Controller
 {
     public function index(): View
     {
-        $labels = TaskStatus::withCount('tasks')->latest()->paginate(10);
-        return view('pages.labels', compact('labels'));
+        $taskStatuses = TaskStatus::withCount('tasks')->latest()->paginate(10);
+        return view('statuses.index', compact('taskStatuses'));
     }
 
     public function create(): View
@@ -26,7 +26,7 @@ class TaskStatusController extends Controller
     {
         TaskStatus::create($request->validated());
 
-        return redirect()->route('labels.index')
+        return redirect()->route('task_statuses.index')
             ->with('success', __('app.flash.status.created'));
     }
 
@@ -39,7 +39,7 @@ class TaskStatusController extends Controller
     {
         $taskStatus->update($request->validated());
 
-        return redirect()->route('labels.index')
+        return redirect()->route('task_statuses.index')
             ->with('success', __('app.flash.status.updated'));
     }
 
@@ -52,7 +52,7 @@ class TaskStatusController extends Controller
 
         $taskStatus->delete();
 
-        return redirect()->route('labels.index')
+        return redirect()->route('task_statuses.index')
             ->with('success', __('app.flash.status.deleted'));
     }
 }

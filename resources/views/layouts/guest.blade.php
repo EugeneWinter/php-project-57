@@ -9,36 +9,13 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    
-    <style>
-        .guest-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            background: url('/images/main_bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        
-        .guest-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(230, 247, 255, 0.92);
-            z-index: -1;
-        }
-    </style>
 </head>
-<body>
+<body class="guest-layout">
     <div class="guest-container">
-        {{ $slot }}
+        <div class="guest-card">
+            {{ $slot }}
+        </div>
     </div>
 </body>
 </html>

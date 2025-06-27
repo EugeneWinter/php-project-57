@@ -1,6 +1,5 @@
 @if (session()->has('success') || session()->has('error'))
-<div class="notification fixed top-4 right-4 p-4 rounded shadow-lg 
-            {{ session('success') ? 'bg-green-500' : 'bg-red-500' }} text-white">
+<div class="notification {{ session('success') ? 'success' : 'error' }}">
     {{ session('success') ?? session('error') }}
 </div>
 @endif

@@ -1,26 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Просмотр метки') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-800">
+                {{ __('Просмотр метки') }}
+            </h2>
+            <a href="{{ route('labels.index') }}" class="btn btn-secondary">
+                {{ __('Назад') }}
+            </a>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="mb-4">
-                        <h3 class="text-lg font-medium text-gray-900">{{ $label->name }}</h3>
-                        <p class="mt-1 text-sm text-gray-600">{{ $label->description ?? 'Нет описания' }}</p>
-                    </div>
-                    <div class="flex items-center">
-                        <a href="{{ route('labels.index') }}" class="text-blue-600 hover:text-blue-900 mr-4">
-                            Назад к списку
-                        </a>
-                        <span class="text-sm text-gray-500">
-                            Создано: {{ $label->created_at->format('d.m.Y H:i') }}
-                        </span>
-                    </div>
+    <div class="card elevation-4">
+        <div class="card-body">
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-900">{{ $label->name }}</h3>
+                <p class="mt-4 text-gray-600 whitespace-pre-line">{{ $label->description ?? __('Нет описания') }}</p>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-6 border-t border-gray-200">
+                <div class="text-sm text-gray-500 mb-4 sm:mb-0">
+                    <div>{{ __('Создано:') }} {{ $label->created_at->format('d.m.Y H:i') }}</div>
+                    @if($label->created_at != $label->updated_at)
+                    <div>{{ __('Обновлено:') }} {{ $label->updated_at->format('d.m.Y H:i') }}</div>
+                    @endif
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{{ route('labels.edit', $label) }}" class="btn btn-secondary">
+                        {{ __('Редактировать') }}
+                    </a>
                 </div>
             </div>
         </div>
