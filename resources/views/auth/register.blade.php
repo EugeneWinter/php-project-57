@@ -9,10 +9,12 @@
             @csrf
 
             <div class="form-group">
-                <x-input-label for="name" :value="__('Имя')" />
-                <input type="text" name="name" id="name" type="text" name="name" :value="old('name')" required autofocus />
-                <x-input-error :messages="$errors->get('name')" />
-            </div>
+    <label for="name">Имя</label>
+    <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus />
+    @error('name')
+        <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+    @enderror
+</div>
 
             <div class="form-group">
                 <x-input-label for="email" :value="__('Email')" />
