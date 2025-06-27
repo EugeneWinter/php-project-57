@@ -10,13 +10,13 @@
     --primary-700: #1976d2;
     --primary-800: #1565c0;
     --primary-900: #0d47a1;
-    
+
     /* Warm Blue Gradients */
     --gradient-warm-blue: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
     --gradient-soft-blue: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
     --gradient-ocean: linear-gradient(135deg, #2196f3 0%, #03a9f4 50%, #00bcd4 100%);
     --gradient-sky: linear-gradient(to bottom, #87ceeb 0%, #b0e0e6 100%);
-    
+
     /* White and Light Surfaces */
     --surface-0: #ffffff;
     --surface-50: #f8faff;
@@ -25,14 +25,14 @@
     --surface-200: #e1ecf4;
     --surface-glass: rgba(255, 255, 255, 0.9);
     --surface-glass-hover: rgba(255, 255, 255, 0.95);
-    
+
     /* Text Colors */
     --text-primary: rgba(0, 0, 0, 0.87);
     --text-secondary: rgba(0, 0, 0, 0.6);
     --text-disabled: rgba(0, 0, 0, 0.38);
     --text-on-primary: #ffffff;
     --text-blue: #1976d2;
-    
+
     /* Enhanced Shadows with Blue Tint */
     --elevation-0: none;
     --elevation-1: 0 2px 8px rgba(25, 118, 210, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -40,19 +40,19 @@
     --elevation-4: 0 8px 20px rgba(25, 118, 210, 0.18), 0 4px 12px rgba(0, 0, 0, 0.12);
     --elevation-8: 0 12px 32px rgba(25, 118, 210, 0.2), 0 8px 16px rgba(0, 0, 0, 0.15);
     --elevation-glow: 0 0 20px rgba(33, 150, 243, 0.3);
-    
+
     /* Border Radius */
     --border-radius-sm: 6px;
     --border-radius-md: 12px;
     --border-radius-lg: 18px;
     --border-radius-xl: 24px;
-    
+
     /* Smooth Transitions */
     --transition-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --transition-enter: cubic-bezier(0.0, 0, 0.2, 1);
     --transition-exit: cubic-bezier(0.4, 0, 1, 1);
     --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
+
 /* Spacing */
     --spacing-1: 4px;
     --spacing-2: 8px;
@@ -62,7 +62,7 @@
     --spacing-6: 32px;
     --spacing-7: 40px;
     --spacing-8: 48px;
-    
+
 }
 
 * {
@@ -545,11 +545,11 @@ body {
         font-size: 1.5rem;
         line-height: 2rem;
     }
-    
+
     .card-header {
         padding: var(--spacing-3) var(--spacing-4);
     }
-    
+
     .card-body {
         padding: var(--spacing-4);
     }
@@ -561,30 +561,30 @@ body {
         height: auto;
         padding: var(--spacing-2) var(--spacing-4);
     }
-    
+
     .nav-list {
         flex-direction: column;
         width: 100%;
     }
-    
+
     .nav-item {
         height: auto;
         padding: var(--spacing-2) 0;
     }
-    
+
     .nav-item:after {
         display: none;
     }
-    
+
     .user-menu {
         width: 100%;
         margin-top: var(--spacing-2);
     }
-    
+
     .user-btn {
         justify-content: center;
     }
-    
+
     .user-dropdown {
         position: static;
         box-shadow: none;
@@ -593,16 +593,16 @@ body {
         transform: none;
         background: transparent;
     }
-    
+
     .user-dropdown a {
         color: white;
         text-align: center;
     }
-    
+
     .user-dropdown a:hover {
         background: rgba(255, 255, 255, 0.1);
     }
-    
+
     .layout {
         padding-top: 160px;
     }
