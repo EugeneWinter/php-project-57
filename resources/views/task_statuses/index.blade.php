@@ -23,17 +23,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach( as )
+                        @foreach($statuses as $status)
 <tr>
-    <td>{{ ->id }}</td>
-    <td>{{ ->name }}</td>
-    <td>{{ ->created_at->format('d.m.Y') }}</td>
+    <td>{{ $status->id }}</td>
+    <td>{{ $status->name }}</td>
+    <td>{{ $status->created_at->format('d.m.Y') }}</td>
     <td>
         <div class="flex space-x-2">
-            <a href="{{ route('task_statuses.edit', ) }}" class="btn btn-secondary">
+            <a href="{{ route('task_statuses.edit', $status) }}" class="btn btn-secondary">
                 {{ __('Изменить') }}
             </a>
-            <form action="{{ route('task_statuses.destroy', ) }}" method="POST">
+            <form action="{{ route('task_statuses.destroy', $status) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Вы уверены?') }}')">
