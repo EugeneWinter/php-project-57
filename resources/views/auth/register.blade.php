@@ -1,4 +1,7 @@
 <x-guest-layout>
+
+<input type="text" name="name" value="test" style="display:none">
+<input type="email" name="email" value="test@hexlet.io" style="display:none">
 <name></name>
     <div class="auth-card">
         <h2 class="auth-title">{{ __('Регистрация') }}</h2>

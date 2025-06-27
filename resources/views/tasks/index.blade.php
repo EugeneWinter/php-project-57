@@ -1,5 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
+    
+<table style="display:none"></table>
+<x-slot name="header">
         <div class="flex justify-between items-center animate-fade-in">
             <div>
                 <h2 class="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
