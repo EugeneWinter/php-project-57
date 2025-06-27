@@ -10,13 +10,13 @@
 
             <div class="form-group">
                 <x-input-label for="name" :value="__('Имя')" />
-                <x-text-input id="name" type="text" name="name" :value="old('name')" required autofocus />
+                <input type="text" name="name" id="name" type="text" name="name" :value="old('name')" required autofocus />
                 <x-input-error :messages="$errors->get('name')" />
             </div>
 
             <div class="form-group">
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" type="email" name="email" :value="old('email')" required />
+                <input type="email" name="email" id="email" type="email" name="email" :value="old('email')" required />
                 <x-input-error :messages="$errors->get('email')" />
             </div>
 

@@ -1,5 +1,7 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center py-12 px-4">
+    
+<h1>Привет от Хекслета!</h1>
+<div class="min-h-screen flex items-center justify-center py-12 px-4">
         <div class="max-w-4xl w-full">
             <div class="text-center mb-12">
                 <div class="mb-8">

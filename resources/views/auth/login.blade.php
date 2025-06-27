@@ -12,13 +12,13 @@
 
             <div class="form-group">
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus />
+                <input type="email" name="email" id="email" type="email" name="email" :value="old('email')" required autofocus />
                 <x-input-error :messages="$errors->get('email')" />
             </div>
 
             <div class="form-group">
                 <x-input-label for="password" :value="__('Пароль')" />
-                <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
+                <input type="password" name="password" id="password" type="password" name="password" required autocomplete="current-password" />
                 <x-input-error :messages="$errors->get('password')" />
             </div>
 

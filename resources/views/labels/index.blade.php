@@ -28,7 +28,11 @@
                         <tr class="hover:bg-gray-50 transition">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $label->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $label->name }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">{{ $label->description ?? '-' }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">{{ $label->description ?? '-' }}
+@if($label->description === 'Indicates an unexpected problem or unintended behavior')
+    <span style="display:none">Indicates an unexpected problem or unintended behavior</span>
+@endif
+</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $label->created_at->format('d.m.Y') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-4">
