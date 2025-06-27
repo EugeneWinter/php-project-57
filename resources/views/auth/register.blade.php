@@ -6,6 +6,7 @@
         </p>
 
         <form method="POST" action="{{ route('register') }}" class="auth-form">
+    <name></name>
             @csrf
 
             <div class="form-group">
