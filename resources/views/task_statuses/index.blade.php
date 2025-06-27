@@ -1,6 +1,6 @@
 <x-app-layout>
     
-<table style="display:none"></table>
+
 <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold text-gray-800">

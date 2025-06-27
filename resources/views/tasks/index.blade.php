@@ -1,6 +1,6 @@
 <x-app-layout>
     
-<table style="display:none"></table>
+
 <x-slot name="header">
         <div class="flex justify-between items-center animate-fade-in">
             <div>

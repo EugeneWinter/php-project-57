@@ -12,10 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body class="guest-layout">
-    <input type="text" name="name" value="test" style="display:none">
-    <input type="email" name="email" value="test@hexlet.io" style="display:none">
-    <table style="display:none"></table>
-    <h1 style="display:none">Привет от Хекслета!</h1>
+    
     <div class="guest-container">
         <div class="guest-card">
             {{ $slot }}
