@@ -11,6 +11,7 @@
                     <span class="block">Ocean Task Manager</span>
                     <span class="text-primary-600">Управляйте задачами с лёгкостью</span>
                 </h1>
+                <p class="text-lg font-bold text-green-700 mt-4">Привет от Хекслета!</p>
                 <p class="text-body-1 text-primary-600">
                     Элегантное и простое решение для организации ваших проектов и ежедневных задач
                 </p>

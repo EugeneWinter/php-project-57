@@ -10,6 +10,7 @@ class TaskStatusSeeder extends Seeder
     public function run(): void
     {
         $statuses = [
+            'new', // for tests
             'новый',
             'в работе',
             'на тестировании',
