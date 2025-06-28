@@ -12,6 +12,12 @@ class ProfileTest extends TestCase
 
     public function testProfilePageIsDisplayed(): void
     {
+        /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
         $user = User::factory()->create();
 
         $response = $this

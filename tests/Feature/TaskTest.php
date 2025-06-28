@@ -49,6 +49,7 @@ class TaskTest extends TestCase
 
     public function testCreatorCanDeleteTask(): void
     {
+        /** @var \App\Models\Task $task */
         $task = Task::factory()->create(['created_by_id' => $this->user->id]);
 
         $this->delete(route('tasks.destroy', $task))
@@ -61,6 +62,7 @@ class TaskTest extends TestCase
     public function testNonCreatorCannotDeleteTask(): void
     {
         $otherUser = User::factory()->create();
+        /** @var \App\Models\Task $task */
         $task = Task::factory()->create(['created_by_id' => $otherUser->id]);
 
         $this->delete(route('tasks.destroy', $task))
