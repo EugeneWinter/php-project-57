@@ -2,9 +2,12 @@ FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    libzip-dev
+    libzip-dev \
+    git \
+    unzip \
+    zip \
+    curl
 RUN docker-php-ext-install pdo pdo_pgsql zip
-
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
@@ -16,8 +19,12 @@ RUN apt-get install -y nodejs
 WORKDIR /app
 
 COPY . .
-RUN composer install
+
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 RUN npm ci
 RUN npm run build
+
+# Важно! Права на storage и bootstrap/cache
+RUN chmod -R 777 storage bootstrap/cache
 
 CMD ["bash", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
