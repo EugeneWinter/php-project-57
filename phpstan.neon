@@ -1,0 +1,8 @@
+parameters:
+  level: 4
+  paths:
+    - app
+  excludePaths:
+    analyseAndScan:
+      - tests
+      - ../routes/channels.php (?)
