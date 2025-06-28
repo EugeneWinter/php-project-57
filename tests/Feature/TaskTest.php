@@ -21,7 +21,7 @@ class TaskTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    public function test_index_displays_tasks(): void
+    public function testIndexDisplaysTasks(): void
     {
         Task::factory()->count(5)->create();
 
@@ -32,7 +32,7 @@ class TaskTest extends TestCase
             ->assertSeeInOrder(Task::pluck('name')->all());
     }
 
-    public function test_user_can_create_task(): void
+    public function testUserCanCreateTask(): void
     {
         $status = TaskStatus::factory()->create();
         $data = [
@@ -47,7 +47,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseHas('tasks', $data);
     }
 
-    public function test_creator_can_delete_task(): void
+    public function testCreatorCanDeleteTask(): void
     {
         $task = Task::factory()->create(['created_by_id' => $this->user->id]);
 
@@ -58,7 +58,7 @@ class TaskTest extends TestCase
         $this->assertModelMissing($task);
     }
 
-    public function test_non_creator_cannot_delete_task(): void
+    public function testNonCreatorCannotDeleteTask(): void
     {
         $otherUser = User::factory()->create();
         $task = Task::factory()->create(['created_by_id' => $otherUser->id]);
