@@ -19,6 +19,17 @@
                 @include('layouts.header')
             </header>
 
+            @if (session('success'))
+                <div class="alert alert-success text-white bg-green-600 px-4 py-2 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger text-white bg-red-600 px-4 py-2 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <section class="bg-white dark:bg-blue-900">
                 <div class="max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
                     @yield('content')
