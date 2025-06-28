@@ -7,7 +7,7 @@
 
 ## Демо
 
-[Открыть приложение на Render.com](https://php-project-57-t1sa.onrender.com)
+[Открыть приложение на Render.com](https://php-project-57-oz8j.onrender.com)
 
 ---
 
