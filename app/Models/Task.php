@@ -15,7 +15,7 @@ class Task extends Model
         'description',
         'status_id',
         'created_by_id',
-        'assigned_to_id'
+        'assigned_to_id',
     ];
 
     public function status(): BelongsTo
@@ -25,16 +25,16 @@ class Task extends Model
 
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by_id');
+        return $this->belongsTo(User::class);
     }
 
     public function assignedTo(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'assigned_to_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function setDescriptionAttribute($value): void
+    public function labels()
     {
-        $this->attributes['description'] = $value ?? '';
+        return $this->belongsToMany(Label::class);
     }
 }

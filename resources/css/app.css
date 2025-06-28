@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.guest-bg input,
+.guest-bg textarea,
+.guest-bg select {
+    color: #111;
+}

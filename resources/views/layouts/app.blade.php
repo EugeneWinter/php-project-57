@@ -1,73 +1,29 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-param" content="_token">
 
-    <title>{{ config('app.name', 'Task Manager') }}</title>
+        <title>{{ __('layout.app_name') }}</title>
 
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body class="layout">
-    <header class="app-bar">
-        <div class="app-bar-container">
-            <div class="app-bar-brand">
-                <a href="{{ route('dashboard') }}" class="logo">{{ config('app.name') }}</a>
-            </div>
-            
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Панель управления') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.*')">
-                            {{ __('Задачи') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('task_statuses.index')" :active="request()->routeIs('task_statuses.*')">
-                            {{ __('Статусы') }}
-                        </x-nav-link>
-                    </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('labels.index')" :active="request()->routeIs('labels.*')">
-                            {{ __('Метки') }}
-                        </x-nav-link>
-                    </li>
-                </ul>
-            </nav>
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-            @auth
-            <div class="user-menu">
-                <div class="user-btn">
-                    <span class="user-name">{{ Auth::user()->name }}</span>
-                    <div class="user-dropdown">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Профиль') }}
-                        </x-dropdown-link>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-dropdown-link :href="route('logout')">
-                                {{ __('Выйти') }}
-                            </x-dropdown-link>
-                        </form>
-                    </div>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans text-white-400">
+        <div id="app">
+            <header class="fixed w-full dark:bg-gray-900">
+                @include('layouts.header')
+            </header>
+
+            <section class="bg-white dark:bg-blue-900">
+                <div class="max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+                    @yield('content')
                 </div>
-            </div>
-            @endauth
+            </section>
         </div>
-    </header>
-
-    <main class="main-content">
-        <div class="container">
-            {{ $slot }}
-        </div>
-    </main>
-</body>
+    </body>
 </html>

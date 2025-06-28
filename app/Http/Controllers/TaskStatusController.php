@@ -2,42 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TaskStatus;
+use Illuminate\Console\View\Components\Task;
+use Illuminate\Http\Request;
 use App\Http\Requests\TaskStatusRequest;
+use App\Models\TaskStatus;
 
 class TaskStatusController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('auth');
+        $this->authorizeResource(TaskStatus::class, 'task_status');
+    }
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $statuses = TaskStatus::paginate(10);
-        return view('task_statuses.index', compact('statuses'));
+        $taskStatuses = TaskStatus::orderBy('id')->paginate();
+        return view('task_status.index', compact('taskStatuses'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('task_statuses.create');
+        //$taskStatuses = new TaskStatus();
+        //print_r(session()->all());
+        return view('task_status.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(TaskStatusRequest $request)
     {
-        TaskStatus::create($request->validated());
-        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
+        $data = $request->validated();
+        $taskStatus = new TaskStatus($data);
+        $taskStatus->save();
+
+        session()->flash('success', __('flash.task_statuses.store.success'));
+
+        return redirect()->route('task_statuses.index');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(TaskStatus $taskStatus)
     {
-        return view('task_statuses.edit', compact('taskStatus'));
+        return view('task_status.edit', compact('taskStatus'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(TaskStatusRequest $request, TaskStatus $taskStatus)
     {
-        $taskStatus->update($request->validated());
-        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно изменён');
+        $data = $request->validated();
+        $taskStatus->fill($data);
+        $taskStatus->save();
+
+        session()->flash('success', __('flash.task_statuses.update.success'));
+
+        return redirect()->route('task_statuses.index');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(TaskStatus $taskStatus)
     {
+        if ($taskStatus->tasks()->exists()) {
+            session()->flash('error', __('flash.task_statuses.delete.error'));
+            return back();
+        }
+
         $taskStatus->delete();
-        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно удалён');
+        session()->flash('success', __('flash.task_statuses.delete.success'));
+
+        return redirect()->route('task_statuses.index');
     }
 }
