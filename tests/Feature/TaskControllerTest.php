@@ -19,7 +19,7 @@ class TaskControllerTest extends TestCase
     {
         parent::setUp();
         $this->user = User::factory()->create();
-        $this->task = Task::factory()->create();
+        $this->task = Task::factory()->create(['created_by_id' => $this->user->id]);
     }
 
     public function testIndex(): void
@@ -75,7 +75,7 @@ class TaskControllerTest extends TestCase
     public function testDestroy(): void
     {
         $this->actingAs($this->user);
-        $ownTask = Task::factory()->for($this->user, 'createdBy')->create();
+        $ownTask = Task::factory()->create(['created_by_id' => $this->user->id]);
         $response = $this->delete(route('tasks.destroy', $ownTask));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
