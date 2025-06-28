@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\TaskStatus;
@@ -18,6 +17,7 @@ class TaskStatusControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->user = User::factory()->create();
         $this->taskStatus = TaskStatus::factory()->create();
     }
@@ -38,11 +38,11 @@ class TaskStatusControllerTest extends TestCase
     public function testStore(): void
     {
         $this->actingAs($this->user);
-        $body = TaskStatus::factory()->make()->toArray();
+        $body = TaskStatus::factory()->make()->only('name');
         $response = $this->post(route('task_statuses.store'), $body);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('task_statuses', ['name' => $body['name']]);
+        $this->assertDatabaseHas('task_statuses', $body);
     }
 
     public function testEdit(): void
@@ -55,7 +55,7 @@ class TaskStatusControllerTest extends TestCase
     public function testUpdate(): void
     {
         $this->actingAs($this->user);
-        $body = TaskStatus::factory()->make()->toArray();
+        $body = TaskStatus::factory()->make()->only('name');
         $response = $this->patch(route('task_statuses.update', $this->taskStatus), $body);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();

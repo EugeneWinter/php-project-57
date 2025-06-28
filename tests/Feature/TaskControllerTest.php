@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Task;
@@ -18,6 +17,7 @@ class TaskControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->user = User::factory()->create();
         $this->task = Task::factory()->create(['created_by_id' => $this->user->id]);
     }
@@ -39,7 +39,7 @@ class TaskControllerTest extends TestCase
     {
         $this->actingAs($this->user);
         $body = Task::factory()->make()->only('name', 'status_id');
-        $response = $this->post(route('tasks.store', $body));
+        $response = $this->post(route('tasks.store'), $body);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('tasks', $body);
@@ -47,14 +47,14 @@ class TaskControllerTest extends TestCase
 
     public function testShow(): void
     {
-        $response = $this->get(route('tasks.show', ['task' => $this->task]));
+        $response = $this->get(route('tasks.show', $this->task));
         $response->assertOk();
     }
 
     public function testEdit(): void
     {
         $this->actingAs($this->user);
-        $response = $this->get(route('tasks.edit', ['task' => $this->task]));
+        $response = $this->get(route('tasks.edit', $this->task));
         $response->assertOk();
     }
 
@@ -62,7 +62,7 @@ class TaskControllerTest extends TestCase
     {
         $this->actingAs($this->user);
         $body = Task::factory()->make()->only('name', 'status_id');
-        $response = $this->patch(route('tasks.update', ['task' => $this->task]), $body);
+        $response = $this->patch(route('tasks.update', $this->task), $body);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('tasks', [
