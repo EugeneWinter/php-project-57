@@ -38,7 +38,7 @@ class LabelController extends Controller
         $label = new Label($data);
         $label->save();
 
-        session()->flash('success', __('flash.labels.store.success'));
+        flash(__('flash.labels.store.success'))->success();
 
         return redirect()->route('labels.index');
     }
@@ -61,7 +61,7 @@ class LabelController extends Controller
         $label->fill($data);
         $label->save();
 
-        session()->flash('success', __('flash.labels.update.success'));
+        flash(__('flash.labels.update.success'))->success();
 
         return redirect()->route('labels.index');
     }
@@ -72,12 +72,12 @@ class LabelController extends Controller
     public function destroy(Label $label)
     {
         if ($label->tasks()->exists()) {
-            session()->flash('error', __('flash.labels.delete.error'));
+            flash(__('flash.labels.delete.error'))->error();
             return back();
         }
 
         $label->delete();
-        session()->flash('success', __('flash.labels.delete.success'));
+        flash(__('flash.labels.delete.success'))->success();
 
         return redirect()->route('labels.index');
     }

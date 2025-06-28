@@ -42,7 +42,7 @@ class TaskStatusController extends Controller
         $taskStatus = new TaskStatus($data);
         $taskStatus->save();
 
-        session()->flash('success', __('flash.task_statuses.store.success'));
+        flash(__('flash.task_statuses.store.success'))->success();
 
         return redirect()->route('task_statuses.index');
     }
@@ -64,7 +64,7 @@ class TaskStatusController extends Controller
         $taskStatus->fill($data);
         $taskStatus->save();
 
-        session()->flash('success', __('flash.task_statuses.update.success'));
+        flash(__('flash.task_statuses.update.success'))->success();
 
         return redirect()->route('task_statuses.index');
     }
@@ -75,12 +75,12 @@ class TaskStatusController extends Controller
     public function destroy(TaskStatus $taskStatus)
     {
         if ($taskStatus->tasks()->exists()) {
-            session()->flash('error', __('flash.task_statuses.delete.error'));
+            flash(__('flash.task_statuses.delete.error'))->error();
             return back();
         }
 
         $taskStatus->delete();
-        session()->flash('success', __('flash.task_statuses.delete.success'));
+        flash(__('flash.task_statuses.delete.success'))->success();
 
         return redirect()->route('task_statuses.index');
     }

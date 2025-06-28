@@ -63,7 +63,7 @@ class TaskController extends Controller
         $labels = Arr::whereNotNull($request->input('labels') ?? []);
         $task->labels()->sync($labels);
 
-        session()->flash('success', __('flash.tasks.store.success'));
+        flash(__('flash.tasks.store.success'))->success();
 
         return redirect()->route('tasks.index');
     }
@@ -98,7 +98,7 @@ class TaskController extends Controller
         $labels = Arr::whereNotNull($request->input('labels') ?? []);
         $task->labels()->sync($labels);
 
-        session()->flash('success', __('flash.tasks.update.success'));
+        flash(__('flash.tasks.update.success'))->success();
 
         return redirect()->route('tasks.index');
     }
@@ -109,7 +109,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
-        session()->flash('success', __('flash.tasks.delete.success'));
+        flash(__('flash.tasks.delete.success'))->success();
         return redirect()->route('tasks.index');
     }
 }
