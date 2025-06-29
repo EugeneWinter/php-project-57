@@ -24,7 +24,6 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 RUN npm ci
 RUN npm run build
 
-# Важно! Права на storage и bootstrap/cache
 RUN chmod -R 777 storage bootstrap/cache
 
 CMD ["bash", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
