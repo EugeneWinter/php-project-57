@@ -2,6 +2,11 @@
 
 return [
     'index' => [
+        'header' => 'Метки',
+        'id' => 'ID',
+        'name' => 'Имя',
+        'description' => 'Описание',
+        'created_at' => 'Дата создания',
         'create' => 'Создать метку',
         'delete' => 'Удалить',
         'edit' => 'Изменить',
