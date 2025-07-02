@@ -17,6 +17,7 @@
                 <tr>
                     <th>{{ __('task_status.index.id') }}</th>
                     <th>{{ __('task_status.index.name') }}</th>
+                    <th>{{ __('task_status.index.description') }}</th>
                     <th>{{ __('task_status.index.created_at') }}</th>
                     @auth
                         <th>{{ __('task_status.index.actions') }}</th>
@@ -28,6 +29,7 @@
                     <tr class="border-b border-dashed text-left">
                         <td>{{ $status->id }}</td>
                         <td>{{ $status->name }}</td>
+                        <td>{{ $status->description }}</td>
                         <td>{{ $status->created_at->format('d.m.Y') }}</td>
                             <td>
                                 @can('delete', $status)

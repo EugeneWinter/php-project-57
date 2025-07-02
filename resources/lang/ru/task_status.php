@@ -6,6 +6,7 @@ return [
         'create' => 'Создать статус',
         'id' => 'ID',
         'name' => 'Имя',
+        'description' => 'Описание',
         'created_at' => 'Дата создания',
         'actions' => 'Действия',
         'delete' => 'Удалить',
