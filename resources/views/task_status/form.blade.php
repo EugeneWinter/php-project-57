@@ -13,14 +13,6 @@
     </div>
     <x-error-message name="name" />
 
-    <div class="mt-2">
-        <label for="description" class="text-white">{{ __($prefix . '.description') }}</label>
-    </div>
-    <div class="mt-2">
-        <textarea name="description" id="description" class="rounded border-gray-300 w-1/3 h-32" cols="50" rows="5">{{ old('description', $taskStatus->description ?? '') }}</textarea>
-    </div>
-    <x-error-message name="description" />
-
     <x-submit-button>
         {{ $buttonText ?? __($prefix . '.button') }}
     </x-submit-button>
