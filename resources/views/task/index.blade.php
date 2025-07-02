@@ -72,7 +72,7 @@
                 @endauth
             </tr>
             </thead>
-            <tbody>
+            <tbody class="text-white">
             @foreach ($tasks as $task)
                 <tr class="border-b border-dashed text-left">
                     <td>{{ $task->id }}</td>
