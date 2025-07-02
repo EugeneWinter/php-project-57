@@ -7,6 +7,7 @@ return [
         'name' => 'Имя',
         'description' => 'Описание',
         'created_at' => 'Дата создания',
+        'actions' => 'Действия',
         'create' => 'Создать метку',
         'delete' => 'Удалить',
         'edit' => 'Изменить',

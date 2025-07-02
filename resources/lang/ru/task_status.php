@@ -16,6 +16,7 @@ return [
     'create' => [
         'header' => 'Создать статус',
         'name' => 'Имя',
+        'description' => 'Описание',
         'button' => 'Создать',
     ],
     'edit' => [
