@@ -8,3 +8,5 @@ parameters:
     excludePaths:
         - tests
         - routes
+    universalObjectCratesClasses:
+        - Illuminate\Database\Eloquent\Model
