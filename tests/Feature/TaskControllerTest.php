@@ -7,6 +7,9 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Task;
 
+/**
+ * @property Task $task
+ */
 class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -18,7 +21,9 @@ class TaskControllerTest extends TestCase
     {
         parent::setUp();
         $this->user = User::factory()->create();
-        $this->task = Task::factory()->create();
+        /** @var Task $task */
+        $task = Task::factory()->create();
+        $this->task = $task;
     }
 
     public function testIndex(): void
