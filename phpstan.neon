@@ -1,8 +1,10 @@
+includes:
+    - vendor/phpstan/phpstan-laravel/extension.neon
+
 parameters:
-  level: 4
-  paths:
-    - app
-  excludePaths:
-    analyseAndScan:
-      - tests
-      - ../routes/channels.php (?)
+    level: 5
+    paths:
+        - app
+    excludePaths:
+        - tests
+        - routes
