@@ -12,7 +12,7 @@ class TaskControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
-    
+
     /**
      * @var Task
      */
