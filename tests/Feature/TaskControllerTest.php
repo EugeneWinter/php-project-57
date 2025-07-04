@@ -6,20 +6,21 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Task;
-use Illuminate\Database\Eloquent\Model;
 
 class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
     private User $user;
-    private Model|Task $task;
+    private Task $task;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
-        $this->task = Task::factory()->create();
+        /** @var Task $task */
+        $task = Task::factory()->create();
+        $this->task = $task;
     }
 
     public function testIndex(): void
